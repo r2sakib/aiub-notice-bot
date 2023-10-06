@@ -1,1 +1,5 @@
 .env
+.dockerignore
+fly.toml
+Procfile
+runtime.txt
