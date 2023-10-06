@@ -48,28 +48,34 @@ def check_new_notices(notices: tuple, new_notices: tuple) -> None:
     """
     links, titles = notices[0], notices[1]
     new_links, new_titles = new_notices[0], new_notices[1]
+
     if links != new_links:
         for i in range(len(new_links)-1):
             if new_links[i] not in links:
                 message: str = bot.notice_message_formatter(new_titles[i], BASE_URL + new_links[i])
                 bot.send_notice_message(message)
+        return True
 
 
 def main():
     """
     This function continuously checks the AIUB website for new notices every 60 seconds.
-    If new notices are found, it calls the check_new_notices function to print them.
+    If new notices are found, it calls the check_new_notices function send them to Telegram channel and prints logs to console.
     """
-    while True:
-        html = requests.get(BASE_URL).text
-        notices: tuple = get_notices(html)
-        
-        sleep(60)
+    html = requests.get(BASE_URL).text
+    notices: tuple = get_notices(html)
 
+    while True:
         new_html = requests.get(BASE_URL).text
         new_notices: tuple = get_notices(new_html)
 
-        check_new_notices(notices, new_notices)
+        found_new_notices = check_new_notices(notices, new_notices)
+        if found_new_notices:
+            notices = new_notices
+        
+        print(f'Found new notices: {found_new_notices}\n {notices}')
+
+        sleep(60)
 
 
 if __name__ == '__main__':
