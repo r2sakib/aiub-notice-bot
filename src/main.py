@@ -6,6 +6,7 @@ from time import sleep
 import bot
 
 BASE_URL = 'https://www.aiub.edu/category/notices'
+NOTICE_BASE_URL = 'https://www.aiub.edu'
 
 
 def get_notices(html: str) -> list:
@@ -52,7 +53,7 @@ def check_new_notices(notices: tuple, new_notices: tuple) -> None:
     if links != new_links:
         for i in range(len(new_links)-1):
             if new_links[i] not in links:
-                message: str = bot.notice_message_formatter(new_titles[i], BASE_URL + new_links[i])
+                message: str = bot.notice_message_formatter(new_titles[i], NOTICE_BASE_URL + new_links[i])
                 bot.send_notice_message(message)
         return True
 
