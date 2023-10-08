@@ -24,4 +24,4 @@ def send_notice_message(message: str):
 
 
 def notice_message_formatter(notice_title, notice_link):
-    return f'New notice:\n<a href="{notice_link}">{notice_title}</a>'
+    return f'<a href="{notice_link}">{notice_title}</a>'
