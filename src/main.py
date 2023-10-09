@@ -50,9 +50,9 @@ def check_new_notices(notices: tuple, new_notices: tuple) -> None:
     links, titles = notices[0], notices[1]
     new_links, new_titles = new_notices[0], new_notices[1]
 
-    if links != new_links:
-        for i in range(len(new_links)-1):
-            if new_links[i] not in links:
+    if titles != new_titles:
+        for i in range(len(new_titles)-1):
+            if new_titles[i] not in titles:
                 message: str = bot.notice_message_formatter(new_titles[i], NOTICE_BASE_URL + new_links[i])
                 bot.send_notice_message(message)
         return True
